@@ -28,7 +28,8 @@ def get_submodules(modname):
     while tovisit:
         mname, ispkg = tovisit.pop()
         try:
-            _, mpath, _ = imp.find_module(mname)
+            f, mpath, descr = imp.find_module(mname)
+            imp.load_module(mname, f, mpath, descr)
             # mimic python2 behaviour
             if not mpath:
                 mpath = mname
